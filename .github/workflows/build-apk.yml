@@ -5,7 +5,10 @@ on:
   push:
     branches: [main]
     paths:
-      - 'source.zip'
+      - 'lib/**'
+      - 'pubspec.yaml'
+      - 'pubspec.lock'
+      - '.github/workflows/build-apk.yml'
 
 permissions:
   contents: read
@@ -16,15 +19,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Extract project archive
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y unzip
-          mkdir -p source
-          unzip -o source.zip -d source
-          test -f source/pubspec.yaml
-          test -d source/lib
-
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -33,28 +27,22 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
+          cache: true
 
-      - name: Create Flutter Android shell
-        run: |
-          cd source
-          flutter create --org com.example --project-name hand_hygiene_checker --platforms=android build_app
-          cp pubspec.yaml build_app/pubspec.yaml
-          rm -rf build_app/lib build_app/test
-          cp -r lib assets test build_app/
-          cp -r android/app/src/main/kotlin/. build_app/android/app/src/main/kotlin/
-          mkdir -p build_app/android/app/src/main/assets
-          curl -fL -o build_app/android/app/src/main/assets/hand_landmarker.task \
-            https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/latest/hand_landmarker.task
-          python3 tools/patch_gradle.py build_app/android/app
+      - name: Generate Android platform project
+        run: flutter create --org com.handhygiene --project-name hand_hygiene_checker --platforms=android .
+
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze
 
       - name: Build release APK
-        run: |
-          cd source/build_app
-          flutter pub get
-          dart run flutter_launcher_icons
-          flutter build apk --release
+        run: flutter build apk --release
 
       - uses: actions/upload-artifact@v4
         with:
-          name: hand-hygiene-apk
-          path: source/build_app/build/app/outputs/flutter-apk/app-release.apk
+          name: hand-hygiene-ai-android
+          path: build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error
