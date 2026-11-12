@@ -204,3 +204,5 @@ class _HandHygieneAppState extends State<HandHygieneApp> {
 }
 
 // CI fix: analyze application source independently from generated template tests.
+
+// Build pipeline retry after lint configuration adjustment.
