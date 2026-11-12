@@ -202,3 +202,5 @@ class _HandHygieneAppState extends State<HandHygieneApp> {
     child: Text(t('محدودیت مهم: این نسخه ابزار ارزیابی انسانی است. تحلیل خودکار ویدئو، تشخیص میکروبی پاکیزگی و نمره‌دهی اعتبارسنجی‌شده فعال نیست. درصد نمایش‌داده‌شده فقط خلاصه چک‌لیست است و برای رتبه‌بندی یا تنبیه کارکنان استفاده نشود. فیلم‌ها به سرور ارسال نمی‌شوند و فایل اصلی در گوشی باقی می‌ماند.',
       'Important: This version supports human review only. Automated video analysis, microbiological verification, and validated scoring are not enabled. The percentage is only a checklist summary and must not be used to rank or penalize staff. Videos are not uploaded; the original file remains on the device.'), style: const TextStyle(fontSize: 13)));
 }
+
+// CI fix: analyze application source independently from generated template tests.
