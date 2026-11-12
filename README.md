@@ -1,34 +1,30 @@
-# Hand Hygiene AI / ارزیابی هوشمند بهداشت دست
+# Hand Hygiene AI — v1.0 prototype
 
-Bilingual Flutter application scaffold for Android and iOS.
+Bilingual Flutter app (Persian RTL / English LTR) for Android and iOS.
 
-## Current prototype
-- Persian (RTL) and English (LTR) interface.
-- Select alcohol-based hand rub or soap-and-water handwashing.
-- Pick a demonstration video from the device.
-- Clearly labels AI analysis as not yet implemented.
-- Human review is planned before any score is finalized.
+## Included
+- Separate alcohol-handrub and soap-and-water checklists.
+- Select a video from the device gallery (no server upload).
+- Stopwatch and manual duration entry.
+- Human reviewer identification, item-by-item findings, notes, and confirmation.
+- Calculates the percentage of checklist items marked Done among items marked Done or Missed; Not observable is excluded.
+- Copies a text review report to the clipboard.
 
-## Planned implementation phases
-1. Video intake, consent, quality checks, and secure storage.
-2. Separate validated checklists for alcohol rub and soap-and-water technique.
-3. Computer-vision pipeline for hand landmarks, action segmentation, sequence, and elapsed time.
-4. Reviewer dashboard to confirm/correct AI findings and issue final reports.
-5. Role-based access, audit trail, retention controls, and export.
-6. Android release and iOS TestFlight/App Store builds.
+## Scope and clinical limitations
+This is a **human-review prototype**, not an AI video-analysis product. It does not inspect video frames, recognize hand movements, or verify microbial cleanliness or complete surface coverage. The displayed percentage is a simple checklist summary, **not an official WHO score and not a validated staff-performance score**. Do not use it for staff ranking, discipline, or clinical decisions. The checklist and timing rules require review against current WHO guidance and local infection-prevention policy before operational use.
 
-## Important clinical limitation
-This scaffold does not analyze video and does not produce a clinical or staff-performance score. A video alone cannot reliably prove complete surface coverage or microbiological hand decontamination. The scoring rubric and thresholds must be reviewed against current WHO guidance and locally approved infection-prevention policy, then validated against trained human observers before operational use.
+## Privacy
+This prototype does not upload videos to a server or store review records in a cloud database. The selected original video remains on the device. Obtain consent, de-identify recordings, and establish institutional access and retention rules before use.
 
 ## Build
-Install Flutter stable, then run:
+GitHub Actions → Build Android APK → Run workflow. Download the `hand-hygiene-ai-android` artifact after a successful run.
+
+iOS validation requires macOS and Xcode. App Store/TestFlight distribution additionally requires Apple code signing and developer setup.
+
+Local:
 ```sh
 flutter pub get
 flutter analyze
 flutter test
 flutter build apk --release
-```
-For iOS, use macOS with Xcode:
-```sh
-flutter build ios --release
 ```
