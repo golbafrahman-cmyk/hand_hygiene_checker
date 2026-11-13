@@ -28,3 +28,5 @@ flutter analyze
 flutter test
 flutter build apk --release
 ```
+
+Android CI now uses JDK 21 for the release build environment.
