@@ -244,7 +244,7 @@ class _HandHygieneAppState extends State<HandHygieneApp> {
     ]));})
   ])));
 
-  Widget _mark(int i,Mark m,String label,Color color)=>ChoiceChip(label:Text(label,style:const TextStyle(fontSize:11)),selected:checks[i].mark==m,onSelected:(_)=>setState(()=>{checks[i].mark=m;confirmed=false;}),selectedColor:color.withOpacity(.18));
+  Widget _mark(int i,Mark m,String label,Color color)=>ChoiceChip(label:Text(label,style:const TextStyle(fontSize:11)),selected:checks[i].mark==m,onSelected:(_)=>setState(() { checks[i].mark=m; confirmed=false; }),selectedColor:color.withValues(alpha: .18));
 
   Widget _notesCard() => Card(child: Padding(padding: const EdgeInsets.all(14), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children:[
     Text(t('۷. بازخورد و یادداشت ارزیاب','7. Reviewer feedback')),
