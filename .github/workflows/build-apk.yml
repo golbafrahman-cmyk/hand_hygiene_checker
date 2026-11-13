@@ -32,6 +32,23 @@ jobs:
       - name: Generate Android platform project
         run: flutter create --org com.handhygiene --project-name hand_hygiene_checker --platforms=android .
 
+      - name: Set Android compile SDK to 36
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          candidates = [Path('android/app/build.gradle'), Path('android/app/build.gradle.kts')]
+          found = False
+          for path in candidates:
+              if path.exists():
+                  text = path.read_text()
+                  text = text.replace('compileSdk = flutter.compileSdkVersion', 'compileSdk = 36')
+                  text = text.replace('compileSdkVersion flutter.compileSdkVersion', 'compileSdkVersion 36')
+                  path.write_text(text)
+                  found = True
+          if not found:
+              raise SystemExit('Android app Gradle file not found')
+          PY
+
       - name: Resolve dependencies
         run: flutter pub get
 
