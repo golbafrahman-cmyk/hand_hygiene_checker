@@ -1,7 +1,7 @@
 name: hand_hygiene_checker
-description: Bilingual hand hygiene video review app for Android and iOS.
+description: Bilingual hand hygiene assessment and reporting app.
 publish_to: "none"
-version: 1.0.0+1
+version: 1.1.0+2
 
 environment:
   sdk: ">=3.3.0 <4.0.0"
@@ -10,6 +10,10 @@ dependencies:
   flutter:
     sdk: flutter
   image_picker: ^1.1.2
+  shared_preferences: ^2.3.3
+  file_picker: ^8.1.7
+  path_provider: ^2.1.5
+  share_plus: ^10.1.4
 
 dev_dependencies:
   flutter_test:
